@@ -12,6 +12,13 @@ increment(X, Y) :- Y is X+1.
 % A = reqf 
 
 % Base case for requests
+food(s0, X):-
+    food(X).
+materials(s0, X):-
+    materials(X).
+energy(s0, X):-
+    energy(X).
+
 food(result(reqf, s0), X):-
 food(X1), X is X1 + 1.
 
@@ -88,10 +95,11 @@ energy(result(A, S), X):-
 goal(S):-
     goal1(S, []).
 
-goal1(result(_, S), [b1, b2]):-
-    food(S, X1), materials(S, X2), energy(S, X3), food(X1), materials(X2), energy(X3), S = s0;
+% goal1(result(_, S), [b1, b2]):-
+    %  food(S, X1), materials(S, X2), energy(S, X3), food(X1), materials(X2), energy(X3), S = s0.
 
-goal1(s0, [b1, b2]).
+goal1(S, [b1, b2]):-
+    food(S, X1), materials(S, X2), energy(S, X3), food(X1), materials(X2), energy(X3), S = s0.
 
 
 goal1(result(b1, S), []):-
